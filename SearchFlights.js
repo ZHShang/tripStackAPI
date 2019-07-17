@@ -76,14 +76,11 @@ getFlightInfo = (origin, dest, dDate, ADT) => {
   var des = process.argv[3].toUpperCase(); //The Destination
   var date = process.argv[4]; //Departure Date
   var numOfAdults = process.argv[5]; //Number of adults
-
-
   getFlightInfo(ori, des, date, numOfAdults)
-
 
 })();
 
 
-module.exports = { getFlightInfo }
+module.exports = { getFlightInfo, sortingFlightsByPrice, printingArray, inputValidationCheck }
 
 
