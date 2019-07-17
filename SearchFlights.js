@@ -28,20 +28,21 @@ printingArray = (array, currency, ori, des) => {
   })
 }
 
-getFlightInfo = (origin, dest, dDate, ADT) => {
-
+inputValidationCheck = (origin, dest, dDate, ADT) => {
   var currentDate = new Date();
   var enteredDate = new Date(dDate);
   if (origin.length < 3 || dest.length < 3) { //Checking if airport is valid
-      console.log("Enter a valid airport");
-      return false;
+      return console.log("Enter a valid airport");
     } else if (enteredDate < currentDate){ //date valid?
-      console.log("Please enter a valid date!")
-      return false;
+      return console.log("Please enter a valid date!");
     } else if (ADT < 1) { //at least one adult?
-      console.log("You need at least 1 adult!");
-      return false;
-  }
+      return console.log("You need at least 1 adult!");
+    }
+}
+
+getFlightInfo = (origin, dest, dDate, ADT) => {
+
+  inputValidationCheck(origin, dest, dDate, ADT);
 
   var concatURL = "https://desktopapps.ryanair.com/v4/en-gb/availability?ADT="
     + ADT +"&CHD=0&DateOut="
@@ -64,10 +65,6 @@ getFlightInfo = (origin, dest, dDate, ADT) => {
       return console.log("error: " + error);
     });
 }
-
-
-
-
 
 (searchFlights = () => {
 
