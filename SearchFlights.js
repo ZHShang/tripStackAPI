@@ -1,5 +1,32 @@
 const fetch = require("node-fetch");
 
+sortingFlightsByPrice = (array) => {
+  if (array.length === 0){
+    return console.log("No Flights Found!");
+  } else {
+    const result = array.filter(element => element.faresLeft > 0);
+    result.sort((a,b) => {
+      aPrice = a.regularFare.fares[0].amount;
+      bPrice = b.regularFare.fares[0].amount;
+      if (aPrice < bPrice){
+        return -1;
+      }
+      if (aPrice > bPrice){
+        return 1;
+      }
+    });
+    return result
+  }
+}
+
+printingArray = (array, currency, ori, des) => {
+  array.forEach((element) => {
+    var departTime = new Date(element.time[0]);
+    var arriveTime = new Date(element.time[1]);
+    console.log(element.flightNumber + " " + ori + " --> " + des + " (" + departTime + " --> "
+            + arriveTime + ") " + " - " + element.regularFare.fares[0].amount + currency)
+  })
+}
 
 getFlightInfo = (origin, dest, dDate, ADT) => {
 
@@ -30,50 +57,17 @@ getFlightInfo = (origin, dest, dDate, ADT) => {
       const des = data.trips[0].destination;
       const flightArray = data.trips[0].dates[0].flights;
       var currency = data.currency;
-      if(flightArray.length === 0 ){
-        return console.log("No Flights Found!");
-      } else {
-        const result = flightArray.filter(flight => flight.faresLeft > 0);
-        result.sort((a,b) => {
-          aPrice = a.regularFare.fares[0].amount;
-          bPrice = b.regularFare.fares[0].amount;
-          if(aPrice < bPrice){
-           return -1;
-          }
-          if(aPrice > bPrice){
-            return 1;
-          }
-        })
-        result.forEach((flight) => {
-          var departTime = new Date(flight.time[0]);
-          var arriveTime = new Date(flight.time[1]);
-          console.log(flight.flightNumber + " " + ori + " --> " + des + " (" + departTime + " --> "
-            + arriveTime + ") " + " - " + flight.regularFare.fares[0].amount + currency)
-        });
-      }
+      var sortedArr = sortingFlightsByPrice(flightArray);
+      printingArray(sortedArr, currency, ori, des);
     })
-    .catch(() => {
-      return console.log("error")
+    .catch((error) => {
+      return console.log("error: " + error);
     });
 }
 
-sortingFlightsByPrice = (array) => {
-  if (array.length === 0){
-    return console.log("No Flights Found!");
-  } else {
-    const result = array.filter(element => element.faresLeft > 0);
-    result.sort((a,b) => {
-      aPrice = a.regularFare.fares[0].amount;
-      bPrice = b.regularFare.fares[0].amount;
-      if (aPrice < bPrice){
-        return -1;
-      }
-      if (aPrice > bPrice){
-        return 1;
-      }
-    });
-  }
-}
+
+
+
 
 (searchFlights = () => {
 
