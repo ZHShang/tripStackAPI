@@ -57,6 +57,24 @@ getFlightInfo = (origin, dest, dDate, ADT) => {
     });
 }
 
+sortingFlightsByPrice = (array) => {
+  if (array.length === 0){
+    return console.log("No Flights Found!");
+  } else {
+    const result = array.filter(element => element.faresLeft > 0);
+    result.sort((a,b) => {
+      aPrice = a.regularFare.fares[0].amount;
+      bPrice = b.regularFare.fares[0].amount;
+      if (aPrice < bPrice){
+        return -1;
+      }
+      if (aPrice > bPrice){
+        return 1;
+      }
+    });
+  }
+}
+
 (searchFlights = () => {
 
   var input = process.argv.slice(2);
