@@ -2,7 +2,13 @@ const chai    = require("chai");
 const assert  = require("chai").assert;
 const expect = require("chai").expect;
 const { getFlightInfo } = require("./SearchFlights");
+const { sortingFlightsByPrice } = require("./SearchFlights");
+const { printingArray } = require("./SearchFlights");
+const { inputValidationCheck } = require("./SearchFlights");
 
+const sampleData = {
+
+}
 
 describe('getFlightInfo', () => {
   it("returns false when you enter wrong departure airport", () => {
@@ -28,8 +34,6 @@ describe('getFlightInfo', () => {
   it("returns the proper flight when all fields are entered", () => {
     assert.equal(getFlightInfo("LGW", "DUB", "2019-07-19", 1), console.log("FR 117 LGW --> DUB (Fri Jul 19 2019 17:35:00 GMT-0400 (Eastern Daylight Time) --> Fri Jul 19 2019 18:55:00 GMT-0400 (Eastern Daylight Time))  - 299.99 HUF"));
   });
-
-
 });
 
 
